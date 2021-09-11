@@ -20,7 +20,7 @@ class Board extends React.Component
      {
           return <Square
                value={this.props.squares[i]}
-               onClick={() => this.props.onClick(i)} /> // handle методы обрабатывающие события 
+               onClick={() => this.props.onClick(i)} />
      }
 
      render()
@@ -64,19 +64,20 @@ class Game extends React.Component
 
      handleClick(i)
      {
-          const history = this.state.history.slice(0, this.state.stepNumber + 1);
+          const history = this.state.history.slice(0, this.state.stepNumber + 1); // перезатираем историю на актуальную 
           const current = history[history.length - 1];
           const squares = current.squares.slice();
+
 
           if (calculateWinner(squares) || squares[i]) {
                return
           }
 
-          squares[i] = this.state.xIsNext ? 'X' : 'O';
+          squares[i] = this.state.xIsNext ? 'X' : 'O'; // выводим X Или O в зависимости от состояния state
           this.setState({
                history: history.concat([{ squares: squares, }]),
-               stepNumber: history.length,
-               xIsNext: !this.state.xIsNext
+               stepNumber: history.length, //длина массива объектов 
+               xIsNext: !this.state.xIsNext // инвертируем boolean значение 
           })
      }
 
@@ -90,10 +91,9 @@ class Game extends React.Component
 
      render()
      {
-          const history = this.state.history;
-          const current = history[this.state.stepNumber];
-          console.log(current);
-          const winner = calculateWinner(current.squares);
+          const history = this.state.history; // объект массивов изменений в игре 
+          const current = history[this.state.stepNumber];// показываем только текущее количество ходов
+          const winner = calculateWinner(current.squares); // current.squares -- это массивы данных о нажатии на поле 
 
           const moves = history.map((step, move) =>
           {
